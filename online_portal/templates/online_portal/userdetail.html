@@ -1,0 +1,93 @@
+{% extends "online_portal/base.html" %}
+
+{% block content %}
+
+<div style="text-align:center" class="container">
+  <h1>User Details</h1>
+
+  <table style="width:100%">
+    <tr>
+      <th>ID</th>
+      <th>Firstname</th>
+      <th>Lastname</th>
+      <th>Username</th>
+      <th>Email ID</th>
+      <!-- <th>Address</th> -->
+      <th>Edit User</th>
+      <th>Edit User 1</th>
+      <th>Delete User</th>
+    </tr>
+    {% for users in users_list %}
+    {% if users_list.is_empty %}
+
+      <h1> Create New Users ! </h1>
+
+    {% endif %}
+
+    <tr>
+      <td> {{ users.id }} </td>
+      <td> {{ users.first_name }} </td>
+      <td> {{ users.last_name }} </td>
+      <td> {{ users.username }} </td>
+      <td> {{ users.email }} </td>
+      <!-- <td> {{ users_list.address }} </td> -->
+
+      <!-- <td> <button type="button" class = 'btn btn-info'><a class="navbar-brand" href="{% url 'update_profile' users.id %}"> Edit </a></button> </td> --> -->
+      <form method="POST" action="{% url 'update_profile' user.id %}" class="form">
+          {% csrf_token %}
+      <td>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo"  >Edit User {{ users.id }}</button>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+
+
+                    <div class="form-group">
+                        <label for="first_name">First Name</label>
+                        <input type="text" name="first_name" class="form-control" id="first_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last Name</label>
+                        <input type="text" name="last_name" class="form-control" id="last_name">
+                    </div>
+                    <div class="form-group"> 
+                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+                        <small id="usernameHelp" class="form-text text-muted">Your username must be unique. We'll let you know if someone has taken it already.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email ID</label>
+                        <input type="email" name="email" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="address">address</label>
+                        <input type="text" name="address" class="form-control" id="address">
+                    </div>
+                    <br>
+                     <!-- <a href= "{% url 'update_profile' user.id %}" class="button">Save</a> -->
+                     <button type="submit" class="btn btn-primary"  >Save{{ users.id }}</button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </td>
+</form>
+      <td> <form action="{% url 'edituserdetails' users.id %}"> <button type="submit" class = 'btn btn-primary'> Edit User{{ users.id }}(form) </button> </form> </td>
+      <td> <form action="{% url 'userdelete' users.id %}"> <button type="submit" class = 'btn btn-primary'> Delete User{{ users.id }} </button> </form></td>
+    </tr>
+
+    {% endfor %}
+  </table>
+
+</div>
+
+
+{% endblock %}

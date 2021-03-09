@@ -1,0 +1,21 @@
+{% extends "online_portal/base.html" %}
+
+{% block title %}
+
+  <title>Home</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+<h1 style="text-align:center"> Welcome to the online portal </h1>
+<br>
+  {% if user.is_authenticated %}
+    <div style="text-align:center" class="container">
+      <h2 >See the user Details Here !</h2>
+      <button type="button" class = 'btn btn-info'><a class="navbar-brand" href="{% url 'userdetails' %}"> Details </a></button>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
